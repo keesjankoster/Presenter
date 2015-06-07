@@ -4,8 +4,8 @@
 #include "ofxUI.h"
 #include "presentation.h"
 
-enum Status {
-	PRESENTER_STATUS_WELCOME,
+enum PresenterStatus {
+	PRESENTER_STATUS_WELCOME, 
 	PRESENTER_STATUS_PRESENTATION
 };
 
@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		Status status;
+		PresenterStatus status;
 		ofImage logo;
 
 		ofxUICanvas *gui, *shutdown;   	

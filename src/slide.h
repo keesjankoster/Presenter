@@ -2,6 +2,10 @@
 
 #include "ofMain.h"
 
+#if defined(TARGET_RASPBERRY_PI)
+#include "ofxOMXPlayer.h"
+#endif
+
 enum slideTransition{
 	PRESENTER_TRANSITION_NONE,
 	PRESENTER_TRANSITION_FADE,
@@ -31,7 +35,14 @@ class Slide
 		
 	private:
 		ofImage bgImage;
+		
+#if defined(TARGET_RASPBERRY_PI)
+		// Use ofxOMXPlayer on Raspberry Pi.
+		ofxOMXPlayer bgVideo;
+#else
+		// Use ofVideoPlayer on Desktop
 		ofVideoPlayer bgVideo;
+#endif
 
 		// Transition variables
 		bool doingTransition;

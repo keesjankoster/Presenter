@@ -10,7 +10,7 @@ Presentation::Presentation(std::string path){
 }
 
 Presentation::~Presentation(void){
-
+	slides.clear();
 }
 
 void Presentation::load(std::string path){
@@ -35,12 +35,16 @@ void Presentation::load(std::string path){
 		transition = presentation.getAttribute("slide", "transition", "none", i);
 		if(transition == "fade"){
 			slide->transition = PRESENTER_TRANSITION_FADE;
+			cout << "FADE" << endl;
 		} else if(transition == "scrolling"){
 			slide->transition = PRESENTER_TRANSITION_SCROLLING;
+			cout << "SCROLLING" << endl;
 		} else if(transition == "fadetoblack"){
 			slide->transition = PRESENTER_TRANSITION_FADETOBLACK;
+			cout << "FADETOBLACK" << endl;
 		} else {
 			slide->transition = PRESENTER_TRANSITION_NONE;
+			cout << "NONE" << endl;
 		}
 
 		// Grab current screen for first slide transition.

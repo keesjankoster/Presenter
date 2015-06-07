@@ -91,12 +91,9 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
 	string name = e.widget->getName(); 
 	int kind = e.widget->getKind(); 
     
-    if(kind == ofxUIWidgetType::OFX_UI_WIDGET_LABELBUTTON)
+    if(kind == OFX_UI_WIDGET_LABELBUTTON)
     {
         ofxUIButton *button = (ofxUIButton *) e.widget;
-
-		cout << name << "\t value: " << button->getValue() << endl;
-
 		if(!button->getValue()){
 			// load presentation xml file.
 			presentation = new Presentation(name);
