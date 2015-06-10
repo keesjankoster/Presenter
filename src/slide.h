@@ -54,6 +54,7 @@ class Slide
 		unsigned long transitionStartTime;
 		int transitionState;
 
+		void setTransitionDefaults();
 		void doTransition(ofImage * current);
 
 };

@@ -2,10 +2,7 @@
 
 Slide::Slide(void){
 	// Setup for Slide Transitions.
-	doingTransition = false;
-	transitionAlpha = 0.0;
-	transitionState = 0;
-	transitionStartTime = 0;
+	setTransitionDefaults();
 }
 
 
@@ -61,6 +58,9 @@ void Slide::update(){
 }
 
 void Slide::draw(){
+	// Set default alpha.
+	ofSetColor(255, 255, 255, 255);
+
 	// Draw background color.
 	ofBackground(backgroundColor);
 
@@ -184,12 +184,21 @@ void Slide::doTransition(ofImage * current){
 
 }
 
+void Slide::setTransitionDefaults(){
+	doingTransition = false;
+	transitionAlpha = 0;
+	transitionStartTime = 0;
+	transitionState = 0;
+}
+
 void Slide::next(){
 	
+	setTransitionDefaults();
 }
 
 void Slide::previous(){
 
+	setTransitionDefaults();
 }
 
 

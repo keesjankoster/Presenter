@@ -94,6 +94,7 @@ void Presentation::draw(){
 }
 
 int Presentation::next(void){
+	slides[currentSlide]->next();
 	if(++currentSlide == slides.size()){
 		ofSetDataPathRoot(dataPathRoot);
 		return 0;
@@ -104,6 +105,7 @@ int Presentation::next(void){
 }
 
 int Presentation::previous(void){
+	slides[currentSlide]->previous();
 	if(--currentSlide == -1){
 		ofSetDataPathRoot(dataPathRoot);
 		return 0;
