@@ -34,6 +34,8 @@ class ofApp : public ofBaseApp{
 		void guiEvent(ofxUIEventArgs &e);
 
 	protected:
+		void endPresentation();
+
 		Presentation *presentation;
 
 		

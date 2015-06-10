@@ -4,8 +4,7 @@ Slide::Slide(void){
 	// Setup for Slide Transitions.
 	doingTransition = false;
 	transitionAlpha = 0.0;
-	transitionState1 = 0;
-	transitionState2 = 0;
+	transitionState = 0;
 	transitionStartTime = 0;
 }
 
@@ -32,7 +31,7 @@ void Slide::update(){
 		if(!bgVideo.isPlaying() && !bgVideo.isPaused()){
 			ofxOMXPlayerSettings settings;
 			settings.videoPath = ofToDataPath(backgroundVideo, true);
-			settings.enableLooping = false;
+			settings.enableLooping = loopBackgroundVideo;
 				
 			bgVideo.setup(settings);
 		}
@@ -43,7 +42,11 @@ void Slide::update(){
 			if(file.exists()){
 				
 				bgVideo.loadMovie(ofToDataPath(backgroundVideo));
-				bgVideo.setLoopState(OF_LOOP_NONE);
+				if(loopBackgroundVideo){
+					bgVideo.setLoopState(OF_LOOP_NORMAL);
+				} else {
+					bgVideo.setLoopState(OF_LOOP_NONE);
+				}
 				bgVideo.play();
 			}
 		}
@@ -126,12 +129,12 @@ void Slide::doTransition(ofImage * current){
 				cout << "SCROLLING: " << ofToString(elapsedTime) << endl;
 
 				previousSlide.draw(0.0, 0.0);
-				current->drawSubsection(0.0, 0.0, current->getWidth(), transitionState1, 0.0, 0.0);
+				current->drawSubsection(0.0, 0.0, current->getWidth(), transitionState, 0.0, 0.0);
 
-				if(transitionState1 < current->getHeight()){
-					transitionState1 += current->getHeight() / 2 * elapsedTime / 1000;
-					if(transitionState1 > current->getHeight()){
-						transitionState1 = current->getHeight();
+				if(transitionState < current->getHeight()){
+					transitionState += current->getHeight() / 2 * elapsedTime / 1000;
+					if(transitionState > current->getHeight()){
+						transitionState = current->getHeight();
 					}
 				} else {
 					doingTransition = false;
@@ -140,7 +143,7 @@ void Slide::doTransition(ofImage * current){
 			case PRESENTER_TRANSITION_FADETOBLACK:
 				cout << "FADETOBLACK: " << ofToString(elapsedTime) << endl;
 
-				if(transitionState1 == 0){
+				if(transitionState == 0){
 					ofEnableAlphaBlending();  
 					ofSetColor(255,255,255,255 - transitionAlpha);  
 					previousSlide.draw(0.0, 0.0);
@@ -152,9 +155,9 @@ void Slide::doTransition(ofImage * current){
 							transitionAlpha = 255;
 						}
 					} else {
-						transitionState1 = 1;
+						transitionState = 1;
 					}
-				} else if(transitionState1 == 1){
+				} else if(transitionState == 1){
 					ofEnableAlphaBlending();
 					ofSetColor(255,255,255, 255 - transitionAlpha);  
 					current->draw(0.0, 0.0);

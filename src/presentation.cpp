@@ -62,9 +62,11 @@ void Presentation::load(std::string path){
 
 		// Setup Background Video.
 		slide->backgroundVideo = presentation.getAttribute("slide", "backgroundvideo", "none", i);
-
-
-
+		if(slide->backgroundVideo != "none"){
+			// Setup looping.
+			slide->loopBackgroundVideo = (presentation.getAttribute("slide", "loop", "no", i)=="yes");
+		}
+		
 		// Add slide to slides collection.
 		slides.push_back(slide);
 	}

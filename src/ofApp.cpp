@@ -72,7 +72,9 @@ void ofApp::update(){
 	if(status == PRESENTER_STATUS_WELCOME){
 		
 	} else if (status == PRESENTER_STATUS_PRESENTATION){
-		presentation->update();
+		if(presentation != NULL){
+			presentation->update();
+		}
 	}
 }
 
@@ -82,7 +84,9 @@ void ofApp::draw(){
 		ofBackground(ofColor::white);
 		logo.draw(50,75);
 	} else if (status == PRESENTER_STATUS_PRESENTATION){
-		presentation->draw();
+		if(presentation != NULL){
+			presentation->draw();
+		}
 	}
 }
 
@@ -100,6 +104,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
 			
 			// set the status and hide the gui on welcome screen.
 			status = PRESENTER_STATUS_PRESENTATION;
+			ofHideCursor();
 			gui->setVisible(false);
 			shutdown->setVisible(false);
 
@@ -129,6 +134,15 @@ void ofApp::exit()
     delete gui; 
 }
 
+void ofApp::endPresentation(){
+	status = PRESENTER_STATUS_WELCOME;
+	ofShowCursor();
+	gui->setVisible(true);
+	shutdown->setVisible(true);
+	delete presentation;
+	presentation = NULL;
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
@@ -140,20 +154,14 @@ void ofApp::keyPressed(int key)
 		case OF_KEY_RIGHT:
 			if (status == PRESENTER_STATUS_PRESENTATION){
 				if(presentation->next()==0){
-					status = PRESENTER_STATUS_WELCOME;
-					gui->setVisible(true);
-					shutdown->setVisible(true);
-					delete presentation;
+					endPresentation();
 				}
 			}
             break; 
 		case OF_KEY_LEFT:
 			if (status == PRESENTER_STATUS_PRESENTATION){
 				if(presentation->previous()==0){
-					status = PRESENTER_STATUS_WELCOME;
-					gui->setVisible(true);
-					shutdown->setVisible(true);
-					delete presentation;
+					endPresentation();
 				}
 			}
             break; 
@@ -179,7 +187,25 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+	switch (button) 
+    {       
+		case OF_MOUSE_BUTTON_LEFT:
+			if (status == PRESENTER_STATUS_PRESENTATION){
+				if(presentation->next()==0){
+					endPresentation();
+				}
+			}
+            break; 
+		case OF_MOUSE_BUTTON_RIGHT:
+			if (status == PRESENTER_STATUS_PRESENTATION){
+				if(presentation->previous()==0){
+					endPresentation();
+				}
+			}
+            break; 
+        default:
+            break;
+    }
 }
 
 //--------------------------------------------------------------

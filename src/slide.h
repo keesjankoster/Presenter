@@ -1,12 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
+#include "item.h"
 
 #if defined(TARGET_RASPBERRY_PI)
 #include "ofxOMXPlayer.h"
 #endif
 
-enum slideTransition{
+enum PresenterSlideTransition{
 	PRESENTER_TRANSITION_NONE,
 	PRESENTER_TRANSITION_FADE,
 	PRESENTER_TRANSITION_SCROLLING,
@@ -27,8 +28,9 @@ class Slide
 		ofColor backgroundColor;
 		string backgroundImage;
 		string backgroundVideo;
+		bool loopBackgroundVideo;
 				
-		slideTransition transition;
+		PresenterSlideTransition transition;
 		ofImage previousSlide;
 		
 
@@ -44,15 +46,13 @@ class Slide
 		ofVideoPlayer bgVideo;
 #endif
 
+		vector< ofPtr<Item> > items;
+
 		// Transition variables
 		bool doingTransition;
 		float transitionAlpha;
 		unsigned long transitionStartTime;
-
-		
-		
-		int transitionState1, transitionState2;
-		vector<int> transitionVector;
+		int transitionState;
 
 		void doTransition(ofImage * current);
 
