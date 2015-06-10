@@ -36,6 +36,8 @@ class Slide
 
 		
 	private:
+		void closeVideos();
+
 		ofImage bgImage;
 		
 #if defined(TARGET_RASPBERRY_PI)

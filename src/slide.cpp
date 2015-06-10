@@ -20,9 +20,8 @@ void Slide::update(){
 		}
 	}
 	
+	// Load background video.
 	if(backgroundVideo!="none"){
-		// Load background video.
-
 #if defined(TARGET_RASPBERRY_PI)
 		// Load video on Raspberry Pi.
 		if(!bgVideo.isPlaying() && !bgVideo.isPaused()){
@@ -50,7 +49,6 @@ void Slide::update(){
 
 		// Update video player;
 		bgVideo.update();
-
 #endif
 			
 	}
@@ -191,13 +189,28 @@ void Slide::setTransitionDefaults(){
 	transitionState = 0;
 }
 
+void Slide::closeVideos(){
+	// Close the video to save resources.
+#if defined(TARGET_RASPBERRY_PI)
+	if(bgVideo.isPlaying()){
+		bgVideo.close();
+	}
+#else
+	if(bgVideo.isLoaded()){
+		bgVideo.closeMovie();
+	}
+#endif
+}
+
 void Slide::next(){
 	
+	closeVideos();
 	setTransitionDefaults();
 }
 
 void Slide::previous(){
 
+	closeVideos();
 	setTransitionDefaults();
 }
 
