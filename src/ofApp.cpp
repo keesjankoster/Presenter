@@ -189,14 +189,14 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
 	switch (button) 
     {       
-		case OF_MOUSE_BUTTON_LEFT:
+		case OF_MOUSE_BUTTON_RIGHT:
 			if (status == PRESENTER_STATUS_PRESENTATION){
 				if(presentation->next()==0){
 					endPresentation();
 				}
 			}
             break; 
-		case OF_MOUSE_BUTTON_RIGHT:
+		case OF_MOUSE_BUTTON_LEFT:
 			if (status == PRESENTER_STATUS_PRESENTATION){
 				if(presentation->previous()==0){
 					endPresentation();
