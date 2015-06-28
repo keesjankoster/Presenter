@@ -14,8 +14,6 @@ Presentation::~Presentation(void){
 }
 
 void Presentation::load(std::string path){
-	int numSlides;
-
 	// Set data path to Presentation path.
 	dataPathRoot = ofToDataPath("");
 	ofSetDataPathRoot(ofToDataPath("Presentations/" + path + "/", true));
@@ -24,15 +22,14 @@ void Presentation::load(std::string path){
 	//presentation.loadFile("Presentations/" + path + "/presentation.xml");
 	presentation.loadFile(ofToDataPath("presentation.xml"));
 	presentation.pushTag("slides");
-	numSlides = presentation.getNumTags("slide");
+	int numSlides = presentation.getNumTags("slide");
 
 	// Load the slides from the presentation.xml file.
 	for(int i = 0; i < numSlides; i++){
 		ofPtr<Slide> slide(new Slide());
 
 		// Setup Slide Transition.
-		string transition;
-		transition = presentation.getAttribute("slide", "transition", "none", i);
+		string transition = presentation.getAttribute("slide", "transition", "none", i);
 		if(transition == "fade"){
 			slide->transition = PRESENTER_TRANSITION_FADE;
 			cout << "FADE" << endl;
@@ -66,6 +63,33 @@ void Presentation::load(std::string path){
 			// Setup looping.
 			slide->loopBackgroundVideo = (presentation.getAttribute("slide", "loop", "no", i)=="yes");
 		}
+
+		// Load items.
+		presentation.pushTag("slide", i);
+		int numItems = presentation.getNumTags("item");
+		for(int n = 0; n < numItems; n++){
+			ofPtr<Item> item(new Item());
+
+			// Get the item type.
+			string itemType = presentation.getAttribute("item", "type", "title", n);
+			if(itemType == "title"){
+				item->type = PRESENTER_SLIDE_ITEM_TYPE_TITLE;
+			} else if(itemType == "lyric") {
+				item->type = PRESENTER_SLIDE_ITEM_TYPE_LYRIC;
+			}
+
+			// Get the item value.
+			item->value = presentation.getValue("item", "DEFAULT_TEXT", n);
+
+			// Get font.
+			if(item->type == PRESENTER_SLIDE_ITEM_TYPE_TITLE || item->type == PRESENTER_SLIDE_ITEM_TYPE_LYRIC){
+				item->font = &fonts[presentation.getAttribute("item", "font", "verdana.ttf", n) + "_32"];
+			}
+			
+			// Add the item to the slide.
+			slide->items.push_back(item);
+		}
+		presentation.popTag();
 		
 		// Add slide to slides collection.
 		slides.push_back(slide);
@@ -93,24 +117,26 @@ void Presentation::draw(){
 	}
 }
 
-int Presentation::next(void){
-	slides[currentSlide]->next();
-	if(++currentSlide == slides.size()){
-		ofSetDataPathRoot(dataPathRoot);
-		return 0;
-	} else {
-		slides[currentSlide]->previousSlide.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-		return 1;
+bool Presentation::next(void){
+	if(!slides[currentSlide]->next()){
+		if(++currentSlide == slides.size()){
+			ofSetDataPathRoot(dataPathRoot);
+			return false;
+		} else {
+			slides[currentSlide]->previousSlide.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+			return true;
+		}
 	}
 }
 
-int Presentation::previous(void){
-	slides[currentSlide]->previous();
-	if(--currentSlide == -1){
-		ofSetDataPathRoot(dataPathRoot);
-		return 0;
-	} else {
-		slides[currentSlide]->previousSlide.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
-		return 1;
+bool Presentation::previous(void){
+	if(!slides[currentSlide]->previous()){
+		if(--currentSlide == -1){
+			ofSetDataPathRoot(dataPathRoot);
+			return false;
+		} else {
+			slides[currentSlide]->previousSlide.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+			return true;
+		}
 	}
 }

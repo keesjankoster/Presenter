@@ -1,8 +1,11 @@
 #pragma once
 
-enum PresenterSlideItemType{
+#include <string>
+#include "ofMain.h"
+
+enum PresenterSlideItemType {
 	PRESENTER_SLIDE_ITEM_TYPE_TITLE,
-	PRESENTER_SLIDE_ITEM_TYPE_LYRIC,
+	PRESENTER_SLIDE_ITEM_TYPE_LYRIC
 };
 
 class Item
@@ -13,10 +16,12 @@ class Item
 
 		void update();
 		void draw();
-
+		
 		PresenterSlideItemType type;
+		std::string value;
+		ofTrueTypeFont *font;
 
-		
-		
+	private:
+		float scale;
 };
 

@@ -160,6 +160,9 @@
     <ClCompile Include="src\item.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ofxAssets.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -351,6 +354,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\item.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofxAssets.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

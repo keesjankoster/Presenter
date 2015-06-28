@@ -7,7 +7,7 @@
 #include "ofxOMXPlayer.h"
 #endif
 
-enum PresenterSlideTransition{
+enum PresenterSlideTransition {
 	PRESENTER_TRANSITION_NONE,
 	PRESENTER_TRANSITION_FADE,
 	PRESENTER_TRANSITION_SCROLLING,
@@ -22,8 +22,8 @@ class Slide
 
 		void update();
 		void draw();
-		void next();
-		void previous();
+		bool next(void);
+		bool previous(void);
 
 		ofColor backgroundColor;
 		string backgroundImage;
@@ -33,7 +33,8 @@ class Slide
 		PresenterSlideTransition transition;
 		ofImage previousSlide;
 		
-
+		// Items (Titles, Lyrics) on a slide.
+		vector< ofPtr<Item> > items;
 		
 	private:
 		void closeVideos();
@@ -48,7 +49,8 @@ class Slide
 		ofVideoPlayer bgVideo;
 #endif
 
-		vector< ofPtr<Item> > items;
+		// Item varables
+		int currentItem;
 
 		// Transition variables
 		bool doingTransition;

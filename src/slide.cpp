@@ -3,10 +3,13 @@
 Slide::Slide(void){
 	// Setup for Slide Transitions.
 	setTransitionDefaults();
+
+	// Set Current Item
+	currentItem = -1;
 }
 
-
 Slide::~Slide(void){
+	items.clear();
 }
 
 void Slide::update(){
@@ -50,6 +53,11 @@ void Slide::update(){
 		// Update video player;
 		bgVideo.update();
 #endif
+
+		// Items.
+		if(items.size() > 0 && currentItem > -1){
+			items[currentItem]->update();
+		}
 			
 	}
 
@@ -80,6 +88,11 @@ void Slide::draw(){
 		bgVideo.draw(0, 0, ofGetWindowWidth(), vHeight);
 	}
 #endif
+
+	// Items.
+	if(items.size() > 0 && currentItem > -1){
+		items[currentItem]->draw();
+	}
 	
 	// Do slide transition.
 	if(transition != PRESENTER_TRANSITION_NONE){
@@ -202,16 +215,24 @@ void Slide::closeVideos(){
 #endif
 }
 
-void Slide::next(){
-	
+bool Slide::next(){
+	if(items.size() > 0 && ++currentItem != items.size()){
+		return true;	
+	}
+
 	closeVideos();
 	setTransitionDefaults();
+	return false;
 }
 
-void Slide::previous(){
+bool Slide::previous(){
+	if(items.size() > 0 && --currentItem != -1){
+		return true;	
+	}
 
 	closeVideos();
 	setTransitionDefaults();
+	return false;
 }
 
 

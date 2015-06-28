@@ -3,6 +3,7 @@
 #include <string>
 #include <ofxXmlSettings.h>
 #include "slide.h"
+#include "ofxAssets.h"
 
 class Presentation
 {
@@ -14,8 +15,8 @@ class Presentation
 		void load(std::string path);
 		void update();
 		void draw();
-		int next(void);
-		int previous(void);
+		bool next(void);
+		bool previous(void);
 
 	private:
 		string dataPathRoot;
@@ -24,5 +25,7 @@ class Presentation
 		vector< ofPtr<Slide> > slides;
 
 		unsigned int currentSlide;
+
+		ofxFontAssets fonts;
 };
 
