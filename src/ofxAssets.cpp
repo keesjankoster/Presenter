@@ -88,7 +88,7 @@ void ofxFontAssets::add(string fontnamesize, bool preload) {
     getline(iss, fontname, '_');
     iss >> fontsize;
     
-    fnt->loadFont(fontname, fontsize, true, false, true);      // loadFont doesn't return status
+    fnt->loadFont(fontname, fontsize, true, false, false);      // loadFont doesn't return status
     assets[fontnamesize] = fnt;
 }
 
