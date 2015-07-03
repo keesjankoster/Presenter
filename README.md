@@ -15,6 +15,20 @@ An example:
   <slide backgroundcolor="#000000" backgroundimage="slide02.jpg" transition="fade"/>
   <slide backgroundcolor="#000000" backgroundimage="slide03.jpg" transition="scrolling"/>
   <slide backgroundcolor="#000000" backgroundimage="slide04.jpg" transition="fadetoblack"/>
-  <slide backgroundcolor="#000000" backgroundvideo="slide2.mp4" transition="fade"/>
+  <slide backgroundcolor="#000000" backgroundvideo="video.mp4" transition="fade"/>
+    <item type="title" font="MyriadPro-Bold.otf">Father God, you're by my side</item>
+    <item type="lyric" font="MyriadPro-Bold.otf"><![CDATA[Father God,
+you're by my side
+And you will never,
+ever leave me
+Father God,
+you're by my side
+And you will never,
+ever leave me]]></item>
+	  <item type="lyric" font="Amble-Bold.ttf"><![CDATA[When the road is really tough
+And it's very hard to walk
+When I'm feeling really rough
+And it's even hard to talk to you]]></item>
+  </slide>
 </slides>
 ```
