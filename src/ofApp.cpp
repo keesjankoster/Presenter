@@ -42,8 +42,8 @@ void ofApp::setup(){
 	int i, size;
 	ofDirectory presentations;
 	presentations = ofDirectory("Presentations");
-	presentations.sort();
 	presentations.listDir();
+	presentations.sort();
 	size = presentations.size();
 
 	activeButton = 0;
@@ -71,6 +71,10 @@ void ofApp::setup(){
 	shutdown->addImageButton("Shutdown", "shutdown.png", false);
 	shutdown->autoSizeToFitWidgets();
     ofAddListener(shutdown->newGUIEvent,this,&ofApp::guiEvent);
+
+#if defined(TARGET_RASPBERRY_PI) 
+	ofHideCursor();    
+#endif
 		
 }
 
@@ -161,10 +165,18 @@ void ofApp::loadPresentation(string name){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
+	cout << "KEY: " << ofToString(key) << endl;
+
     switch (key) 
     {       
         case 'g':
             gui->toggleVisible(); 
+			break;
+		case 'x':
+			if (status == PRESENTER_STATUS_PRESENTATION){
+				presentation->exit();
+				endPresentation();
+			}
 			break;
 		case OF_KEY_RIGHT:
 			if (status == PRESENTER_STATUS_PRESENTATION){
@@ -209,6 +221,7 @@ void ofApp::keyPressed(int key)
 			}
             break; 
 		case OF_KEY_RETURN:
+		case 10: //somehow the RETURN key on RPi is 10 and not OF_KEY_RETURN
 			if (status == PRESENTER_STATUS_WELCOME){
 				ofxUILabelButton* btn = buttons[activeButton];
 				loadPresentation(btn->getName());

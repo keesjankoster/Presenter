@@ -17,6 +17,7 @@ class Presentation
 		void draw();
 		bool next(void);
 		bool previous(void);
+		void exit();
 
 	private:
 		string dataPathRoot;

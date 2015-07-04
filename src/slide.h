@@ -35,6 +35,8 @@ class Slide
 		
 		// Items (Titles, Lyrics) on a slide.
 		vector< ofPtr<Item> > items;
+
+		//Presentation* presentation;
 		
 	private:
 		void closeVideos();

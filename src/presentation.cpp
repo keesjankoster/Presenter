@@ -28,6 +28,9 @@ void Presentation::load(std::string path){
 	for(int i = 0; i < numSlides; i++){
 		ofPtr<Slide> slide(new Slide());
 
+		// set the presentation
+		//slide->presentation = this;
+
 		// Setup Slide Transition.
 		string transition = presentation.getAttribute("slide", "transition", "none", i);
 		if(transition == "fade"){
@@ -139,4 +142,8 @@ bool Presentation::previous(void){
 			return true;
 		}
 	}
+}
+
+void Presentation::exit(){
+	ofSetDataPathRoot(dataPathRoot);
 }
