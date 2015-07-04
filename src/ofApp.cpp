@@ -46,9 +46,16 @@ void ofApp::setup(){
 	presentations.listDir();
 	size = presentations.size();
 
+	activeButton = 0;
 	for (i = 0; i < size; i++){
 		if (presentations.getFile(i).isDirectory()==1){
-			gui->addLabelButton(presentations.getFile(i).getFileName(), false, 300, 30, 0, 0, true);
+			ofxUILabelButton *btn = gui->addLabelButton(presentations.getFile(i).getFileName(), false, 300, 30, 0, 0, true);
+			btn->setPadding(5);
+			btn->setDrawPaddingOutline(true);
+			if(i==0){
+				btn->setColorPaddedOutline(ofxUIColor(38, 147, 255, 255));
+			}
+			buttons.push_back(btn);
 		}
 	}
     
@@ -99,16 +106,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
     {
         ofxUIButton *button = (ofxUIButton *) e.widget;
 		if(!button->getValue()){
-			// load presentation xml file.
-			presentation = new Presentation(name);
-			
-			// set the status and hide the gui on welcome screen.
-			status = PRESENTER_STATUS_PRESENTATION;
-			ofHideCursor();
-			gui->setVisible(false);
-			shutdown->setVisible(false);
-
-			cout << name << "\t value: " << button->getValue() << endl;
+			loadPresentation(name);
 		}
     }
     else if(kind == OFX_UI_WIDGET_IMAGEBUTTON)
@@ -136,11 +134,28 @@ void ofApp::exit()
 
 void ofApp::endPresentation(){
 	status = PRESENTER_STATUS_WELCOME;
+#if !defined(TARGET_RASPBERRY_PI)
 	ofShowCursor();
+#endif
 	gui->setVisible(true);
 	shutdown->setVisible(true);
 	delete presentation;
 	presentation = NULL;
+}
+
+void ofApp::loadPresentation(string name){
+	// load presentation xml file.
+	presentation = new Presentation(name);
+			
+	// set the status and hide the gui on welcome screen.
+	status = PRESENTER_STATUS_PRESENTATION;
+#if !defined(TARGET_RASPBERRY_PI)
+	ofHideCursor();
+#endif
+	gui->setVisible(false);
+	shutdown->setVisible(false);
+
+	cout << name << endl;
 }
 
 //--------------------------------------------------------------
@@ -165,6 +180,40 @@ void ofApp::keyPressed(int key)
 				}
 			}
             break; 
+		case OF_KEY_UP:
+			if (status == PRESENTER_STATUS_WELCOME){
+				int prevButton = activeButton;
+				if(--activeButton == -1){
+					activeButton = buttons.size() - 1;
+				}
+				
+				ofxUILabelButton* btn = buttons[prevButton];
+				btn->setColorPaddedOutline(ofxUIColor(255, 255, 255, 255));
+
+				btn = buttons[activeButton];
+				btn->setColorPaddedOutline(ofxUIColor(38, 147, 255, 255));
+			}
+            break; 
+		case OF_KEY_DOWN:
+			if (status == PRESENTER_STATUS_WELCOME){
+				int prevButton = activeButton;
+				if(++activeButton == buttons.size()){
+					activeButton = 0;
+				}
+				
+				ofxUILabelButton* btn = buttons[prevButton];
+				btn->setColorPaddedOutline(ofxUIColor(255, 255, 255, 255));
+
+				btn = buttons[activeButton];
+				btn->setColorPaddedOutline(ofxUIColor(38, 147, 255, 255));
+			}
+            break; 
+		case OF_KEY_RETURN:
+			if (status == PRESENTER_STATUS_WELCOME){
+				ofxUILabelButton* btn = buttons[activeButton];
+				loadPresentation(btn->getName());
+			}
+			break;
         default:
             break;
     }

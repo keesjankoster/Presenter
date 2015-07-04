@@ -35,8 +35,12 @@ class ofApp : public ofBaseApp{
 
 	protected:
 		void endPresentation();
+		void loadPresentation(string name);
 
 		Presentation *presentation;
+
+		int activeButton;
+		vector<ofxUILabelButton*> buttons;
 
 		
 };
