@@ -29,7 +29,7 @@ void Presentation::load(std::string path){
 		ofPtr<Slide> slide(new Slide());
 
 		// set the presentation
-		//slide->presentation = this;
+		slide->presentation = this;
 
 		// Setup Slide Transition.
 		string transition = presentation.getAttribute("slide", "transition", "none", i);

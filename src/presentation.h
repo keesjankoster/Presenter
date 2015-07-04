@@ -23,7 +23,7 @@ class Presentation
 		string dataPathRoot;
 		
 		ofxXmlSettings presentation;
-		vector< ofPtr<Slide> > slides;
+		vector< ofPtr< Slide > > slides;
 
 		unsigned int currentSlide;
 

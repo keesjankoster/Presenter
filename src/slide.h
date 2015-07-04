@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "item.h"
 
+class Presentation;
+
 #if defined(TARGET_RASPBERRY_PI)
 #include "ofxOMXPlayer.h"
 #endif
@@ -36,7 +38,7 @@ class Slide
 		// Items (Titles, Lyrics) on a slide.
 		vector< ofPtr<Item> > items;
 
-		//Presentation* presentation;
+		Presentation* presentation;
 		
 	private:
 		void closeVideos();
