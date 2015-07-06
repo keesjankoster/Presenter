@@ -92,8 +92,16 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	if(status == PRESENTER_STATUS_WELCOME){
+		// White background
+		ofSetColor(ofColor::white);
 		ofBackground(ofColor::white);
+
+		// LUKE Theatre Group logo
 		logo.draw(50,75);
+
+		// Presenter version
+		ofSetColor(ofColor(ofColor::dimGrey));
+		ofDrawBitmapString("1.0.0", 960, 740);
 	} else if (status == PRESENTER_STATUS_PRESENTATION){
 		if(presentation != NULL){
 			presentation->draw();
