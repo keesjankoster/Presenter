@@ -220,6 +220,8 @@ bool Slide::next(){
 		return true;	
 	}
 
+	currentItem = items.size() - 1;
+
 	closeVideos();
 	setTransitionDefaults();
 	return false;
