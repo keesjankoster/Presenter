@@ -35,16 +35,16 @@ void Presentation::load(std::string path){
 		string transition = presentation.getAttribute("slide", "transition", "none", i);
 		if(transition == "fade"){
 			slide->transition = PRESENTER_TRANSITION_FADE;
-			cout << "FADE" << endl;
+			// cout << "FADE" << endl;
 		} else if(transition == "scrolling"){
 			slide->transition = PRESENTER_TRANSITION_SCROLLING;
-			cout << "SCROLLING" << endl;
+			// cout << "SCROLLING" << endl;
 		} else if(transition == "fadetoblack"){
 			slide->transition = PRESENTER_TRANSITION_FADETOBLACK;
-			cout << "FADETOBLACK" << endl;
+			// cout << "FADETOBLACK" << endl;
 		} else {
 			slide->transition = PRESENTER_TRANSITION_NONE;
-			cout << "NONE" << endl;
+			// cout << "NONE" << endl;
 		}
 
 		// Grab current screen for first slide transition.
@@ -55,7 +55,7 @@ void Presentation::load(std::string path){
 		// Setup Background Color.
 		ofColor color;
 		slide->backgroundColor = color.fromHex(ofHexToInt(presentation.getAttribute("slide", "backgroundcolor", "#000000", i).replace(0,1,"0x")));
-		//cout << ofToString(slide->backgroundColor) << endl;
+		// cout << ofToString(slide->backgroundColor) << endl;
 
 		// Setup Background Image.
 		slide->backgroundImage = presentation.getAttribute("slide", "backgroundimage", "none", i);
@@ -100,6 +100,8 @@ void Presentation::load(std::string path){
 
 	// Set the current slide.
 	currentSlide = 0;
+
+	// cout << "READY LOADING" << endl;
 }
 
 void Presentation::update(){
@@ -109,7 +111,7 @@ void Presentation::update(){
 
 	}
 
-	//cout << ofToString(slide->backgroundColor) << endl;
+	// cout << ofToString(slide->backgroundColor) << endl;
 }
 
 void Presentation::draw(){

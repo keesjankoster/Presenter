@@ -101,7 +101,7 @@ void ofApp::draw(){
 
 		// Presenter version
 		ofSetColor(ofColor(ofColor::dimGrey));
-		ofDrawBitmapString("1.0.1", 960, 740);
+		ofDrawBitmapString("1.0.2", 960, 740);
 	} else if (status == PRESENTER_STATUS_PRESENTATION){
 		if(presentation != NULL){
 			presentation->draw();
@@ -167,13 +167,13 @@ void ofApp::loadPresentation(string name){
 	gui->setVisible(false);
 	shutdown->setVisible(false);
 
-	cout << name << endl;
+	// cout << name << endl;
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-	cout << "KEY: " << ofToString(key) << endl;
+	// cout << "KEY: " << ofToString(key) << endl;
 
     switch (key) 
     {       
@@ -231,8 +231,11 @@ void ofApp::keyPressed(int key)
 		case OF_KEY_RETURN:
 		case 10: //somehow the RETURN key on RPi is 10 and not OF_KEY_RETURN
 			if (status == PRESENTER_STATUS_WELCOME){
+				// cout << "ENTER KEY PRESSED" << endl;
 				ofxUILabelButton* btn = buttons[activeButton];
+				// cout << "LOAD PRESENTATION" << endl;
 				loadPresentation(btn->getName());
+				// cout << "PRESENTATION LOADED" << endl;
 			}
 			break;
         default:

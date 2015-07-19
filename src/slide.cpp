@@ -16,12 +16,14 @@ void Slide::update(){
 	// Load background image.
 	if(backgroundImage!="none" && !bgImage.isAllocated()){
 		ofFile file(ofToDataPath(backgroundImage));
-		//cout << "Image: " << ofToDataPath(backgroundImage) << endl;
+		// cout << "Image: " << ofToDataPath(backgroundImage) << endl;
 		if(file.exists()){
 			bgImage.loadImage(file);
-			//cout << "Image loaded: " << ofToDataPath(backgroundImage) << endl;
+			// cout << "Image loaded: " << ofToDataPath(backgroundImage) << endl;
 		}
 	}
+
+	// cout << "UPDATE 1" << endl;
 	
 	// Load background video.
 	if(backgroundVideo!="none"){
@@ -54,6 +56,8 @@ void Slide::update(){
 		bgVideo.update();
 #endif
 
+		// cout << "UPDATE 2" << endl;
+
 		// Items.
 		if(items.size() > 0 && currentItem > -1){
 			items[currentItem]->update();
@@ -61,14 +65,20 @@ void Slide::update(){
 			
 	}
 
+	// cout << "UPDATE 3" << endl;
+
 }
 
 void Slide::draw(){
+	// cout << "DRAW 0" << endl;
+
 	// Set default alpha.
 	ofSetColor(255, 255, 255, 255);
 
 	// Draw background color.
 	ofBackground(backgroundColor);
+
+	// cout << "DRAW 1" << endl;
 
 	// Draw background image.
 	if(bgImage.isAllocated()){
@@ -89,17 +99,23 @@ void Slide::draw(){
 	}
 #endif
 
+	// cout << "DRAW 2" << endl;
+
 	// Items.
 	if(items.size() > 0 && currentItem > -1){
 		items[currentItem]->draw();
 	}
 	
+	// cout << "DRAW 3" << endl;
+
 	// Do slide transition.
 	if(transition != PRESENTER_TRANSITION_NONE){
 		ofImage screen;
 		screen.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 		doTransition(&screen);
 	}
+
+	// cout << "DRAW 4" << endl;
 
 }
 
@@ -118,7 +134,7 @@ void Slide::doTransition(ofImage * current){
 
 		switch(transition){
 			case PRESENTER_TRANSITION_FADE:
-				cout << "FADE: " << ofToString(elapsedTime) << endl;
+				// cout << "FADE: " << ofToString(elapsedTime) << endl;
 
 				ofEnableAlphaBlending();  
 				ofSetColor(255,255,255,255 - transitionAlpha);  
@@ -137,7 +153,7 @@ void Slide::doTransition(ofImage * current){
 				}
 				break;
 			case PRESENTER_TRANSITION_SCROLLING:
-				cout << "SCROLLING: " << ofToString(elapsedTime) << endl;
+				// cout << "SCROLLING: " << ofToString(elapsedTime) << endl;
 
 				previousSlide.draw(0.0, 0.0);
 				current->drawSubsection(0.0, 0.0, current->getWidth(), transitionState, 0.0, 0.0);
@@ -152,7 +168,7 @@ void Slide::doTransition(ofImage * current){
 				}
 				break;
 			case PRESENTER_TRANSITION_FADETOBLACK:
-				cout << "FADETOBLACK: " << ofToString(elapsedTime) << endl;
+				// cout << "FADETOBLACK: " << ofToString(elapsedTime) << endl;
 
 				if(transitionState == 0){
 					ofEnableAlphaBlending();  
