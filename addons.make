@@ -1,3 +1,4 @@
 ofxXmlSettings
 ofxUI
 ofxOMXPlayer
+ofxAssets
