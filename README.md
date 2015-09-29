@@ -32,3 +32,8 @@ And it's even hard to talk to you]]></item>
   </slide>
 </slides>
 ```
+## Codecs
+
+It seems that on Windows Codecs need to be installed: http://www.codecguide.com/download_kl.htm
+
+
