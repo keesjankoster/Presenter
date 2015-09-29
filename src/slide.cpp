@@ -82,7 +82,7 @@ void Slide::draw(){
 
 	// Draw background image.
 	if(bgImage.isAllocated()){
-		bgImage.draw((ofGetWindowWidth() - bgImage.width) / 2, (ofGetWindowHeight() - bgImage.height) / 2);
+		bgImage.draw((ofGetWindowWidth() - bgImage.getWidth()) / 2, (ofGetWindowHeight() - bgImage.getHeight()) / 2);
 	}
 
 	// Draw background video.
