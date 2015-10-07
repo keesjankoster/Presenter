@@ -20,62 +20,28 @@ void ofApp::setup(){
 		logo.resize(550, logo.getHeight() / logo.getWidth() * 550);
 	}
 
-	// Create presentation chooser buttons.
-	gui = new ofxUICanvas();
-	gui->setPosition(650, 250);
-	gui->setDrawBack(false);
-	
-	// Setup custom theme for GUI.
-	ofxUIColor cb = ofxUIColor(38, 147, 255, 200);
-    ofxUIColor co = ofxUIColor(38, 147, 255, 255);
-    ofxUIColor coh = OFX_UI_COLOR_OUTLINE_HIGHLIGHT;
-    ofxUIColor cf = ofxUIColor(255, 255, 255, 255);
-    ofxUIColor cfh = OFX_UI_COLOR_FILL_HIGHLIGHT;
-    ofxUIColor cp = ofxUIColor(38, 147, 255, 255);
-    ofxUIColor cpo = OFX_UI_COLOR_PADDED_OUTLINE;
-    gui->setUIColors( cb, co, coh, cf, cfh, cp, cpo );
-
-	gui->addLabel("Select a presentation:", OFX_UI_FONT_MEDIUM)->setColorFill(ofxUIColor(0, 0, 0, 255));
-    gui->addSpacer();
-
-	// Each directory in bin/data/Presentations is concidered a presentation.
-	int i, size;
-	ofDirectory presentations;
-	presentations = ofDirectory("Presentations");
-	presentations.listDir();
-	presentations.sort();
-	size = presentations.size();
-
-	activeButton = 0;
-	for (i = 0; i < size; i++){
-		if (presentations.getFile(i).isDirectory()==1){
-			ofxUILabelButton *btn = gui->addLabelButton(presentations.getFile(i).getFileName(), false, 300, 30, 0, 0, true);
-			btn->setPadding(5);
-			btn->setDrawPaddingOutline(true);
-			if(i==0){
-				btn->setColorPaddedOutline(ofxUIColor(38, 147, 255, 255));
-			}
-			buttons.push_back(btn);
-		}
-	}
-    
-    gui->autoSizeToFitWidgets();
-    ofAddListener(gui->newGUIEvent,this,&ofApp::guiEvent);
-
-	// Create shutdown button.
-	shutdown = new ofxUICanvas();
-	shutdown->setPosition(ofGetWindowWidth()-60, 10);
-	shutdown->setDrawBack(false);
-
-	shutdown->setGlobalButtonDimension(44);
-	shutdown->addImageButton("Shutdown", "shutdown.png", false);
-	shutdown->autoSizeToFitWidgets();
-    ofAddListener(shutdown->newGUIEvent,this,&ofApp::guiEvent);
+	// Setup Menu.
+	menu = new Menu();
+	ofAddListener(menu->onMenuClick, this, &ofApp::menuClick);
 
 #if defined(TARGET_RASPBERRY_PI) 
 	ofHideCursor();    
 #endif
 		
+}
+
+void ofApp::menuClick(string & path){
+	// load presentation xml file.
+	presentation = new Presentation(path);
+			
+	// set the status and hide the gui on welcome screen.
+	status = PRESENTER_STATUS_PRESENTATION;
+#if !defined(TARGET_RASPBERRY_PI)
+	ofHideCursor();
+#endif
+	menu->hide();
+
+	// cout << name << endl;
 }
 
 //--------------------------------------------------------------
@@ -101,7 +67,7 @@ void ofApp::draw(){
 
 		// Presenter version
 		ofSetColor(ofColor(ofColor::dimGrey));
-		ofDrawBitmapString("1.1.0a", 960, 740);
+		ofDrawBitmapString("1.2.0", 960, 740);
 	} else if (status == PRESENTER_STATUS_PRESENTATION){
 		if(presentation != NULL){
 			presentation->draw();
@@ -109,39 +75,11 @@ void ofApp::draw(){
 	}
 }
 
-void ofApp::guiEvent(ofxUIEventArgs &e)
-{
-	string name = e.widget->getName(); 
-	int kind = e.widget->getKind(); 
-    
-    if(kind == OFX_UI_WIDGET_LABELBUTTON)
-    {
-        ofxUIButton *button = (ofxUIButton *) e.widget;
-		if(!button->getValue()){
-			loadPresentation(name);
-		}
-    }
-    else if(kind == OFX_UI_WIDGET_IMAGEBUTTON)
-    {
-        ofxUIImageButton *button = (ofxUIImageButton *) e.widget; 
-        if(button->getValue()){
-
-#if defined(TARGET_RASPBERRY_PI)
-			// On Raspberry Pi, shutdown.
-			std::system("sudo shutdown -h now");
-#else
-			// Desktop applications, close the application.
-			std::exit(0);         
-#endif
-
-		}              
-    }
-}
-
 //--------------------------------------------------------------
 void ofApp::exit()
 {
-    delete gui; 
+    delete menu;
+
 }
 
 void ofApp::endPresentation(){
@@ -149,25 +87,9 @@ void ofApp::endPresentation(){
 #if !defined(TARGET_RASPBERRY_PI)
 	ofShowCursor();
 #endif
-	gui->setVisible(true);
-	shutdown->setVisible(true);
+	menu->unhide();
 	delete presentation;
 	presentation = NULL;
-}
-
-void ofApp::loadPresentation(string name){
-	// load presentation xml file.
-	presentation = new Presentation(name);
-			
-	// set the status and hide the gui on welcome screen.
-	status = PRESENTER_STATUS_PRESENTATION;
-#if !defined(TARGET_RASPBERRY_PI)
-	ofHideCursor();
-#endif
-	gui->setVisible(false);
-	shutdown->setVisible(false);
-
-	// cout << name << endl;
 }
 
 //--------------------------------------------------------------
@@ -177,9 +99,6 @@ void ofApp::keyPressed(int key)
 
     switch (key) 
     {       
-        case 'g':
-            gui->toggleVisible(); 
-			break;
 		case 'x':
 			if (status == PRESENTER_STATUS_PRESENTATION){
 				presentation->exit();
@@ -200,44 +119,6 @@ void ofApp::keyPressed(int key)
 				}
 			}
             break; 
-		case OF_KEY_UP:
-			if (status == PRESENTER_STATUS_WELCOME){
-				int prevButton = activeButton;
-				if(--activeButton == -1){
-					activeButton = buttons.size() - 1;
-				}
-				
-				ofxUILabelButton* btn = buttons[prevButton];
-				btn->setColorPaddedOutline(ofxUIColor(255, 255, 255, 255));
-
-				btn = buttons[activeButton];
-				btn->setColorPaddedOutline(ofxUIColor(38, 147, 255, 255));
-			}
-            break; 
-		case OF_KEY_DOWN:
-			if (status == PRESENTER_STATUS_WELCOME){
-				int prevButton = activeButton;
-				if(++activeButton == buttons.size()){
-					activeButton = 0;
-				}
-				
-				ofxUILabelButton* btn = buttons[prevButton];
-				btn->setColorPaddedOutline(ofxUIColor(255, 255, 255, 255));
-
-				btn = buttons[activeButton];
-				btn->setColorPaddedOutline(ofxUIColor(38, 147, 255, 255));
-			}
-            break; 
-		case OF_KEY_RETURN:
-		case 10: //somehow the RETURN key on RPi is 10 and not OF_KEY_RETURN
-			if (status == PRESENTER_STATUS_WELCOME){
-				// cout << "ENTER KEY PRESSED" << endl;
-				ofxUILabelButton* btn = buttons[activeButton];
-				// cout << "LOAD PRESENTATION" << endl;
-				loadPresentation(btn->getName());
-				// cout << "PRESENTATION LOADED" << endl;
-			}
-			break;
         default:
             break;
     }

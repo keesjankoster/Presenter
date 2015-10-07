@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxUI.h"
+#include "menu.h"
 #include "presentation.h"
 
 enum PresenterStatus {
@@ -30,17 +30,13 @@ class ofApp : public ofBaseApp{
 		PresenterStatus status;
 		ofImage logo;
 
-		ofxUICanvas *gui, *shutdown;   	
-		void guiEvent(ofxUIEventArgs &e);
-
 	protected:
 		void endPresentation();
-		void loadPresentation(string name);
+		void menuClick(string & path);
 
 		Presentation *presentation;
 
-		int activeButton;
-		vector<ofxUILabelButton*> buttons;
+		Menu *menu;
 
 		
 };
