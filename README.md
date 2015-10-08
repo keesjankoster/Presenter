@@ -32,6 +32,16 @@ And it's even hard to talk to you]]></item>
   </slide>
 </slides>
 ```
+## Screenshots
+
+![alt tag](https://github.com/keesjankoster/Presenter/raw/master/doc/screen1.png)
+
+![alt tag](https://github.com/keesjankoster/Presenter/raw/master/doc/screen2.png)
+
+![alt tag](https://github.com/keesjankoster/Presenter/raw/master/doc/screen3.png)
+
+![alt tag](https://github.com/keesjankoster/Presenter/raw/master/doc/screen4.png)
+
 ## Codecs
 
 It seems that on Windows Codecs need to be installed: http://www.codecguide.com/download_kl.htm
