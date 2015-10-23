@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "ofxArgParser.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -27,7 +28,13 @@ void ofApp::setup(){
 #if defined(TARGET_RASPBERRY_PI) 
 	ofHideCursor();    
 #endif
-		
+
+	// Pars Command Line Arguments
+	if(ofxArgParser::hasKey("presentation")){
+		// Load Presentation
+		menuClick(ofxArgParser::getValue("presentation"));
+	}
+			
 }
 
 void ofApp::menuClick(string & path){

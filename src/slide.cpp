@@ -9,7 +9,26 @@ Slide::Slide(void){
 }
 
 Slide::~Slide(void){
+	// Clear all items
 	items.clear();
+
+	/* ============================================
+	// test the next part!!
+
+	// Clear video if necessary
+	if(backgroundVideo!="none"){
+#if defined(TARGET_RASPBERRY_PI)
+		if(bgVideo.isPlaying()){
+			bgVideo.close();
+		}
+#else
+		if(bgVideo.isLoaded()){
+			bgVideo.closeMovie();
+		}
+#endif
+	}
+
+	// ===========================================*/
 }
 
 void Slide::update(){

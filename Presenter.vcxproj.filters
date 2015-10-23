@@ -37,6 +37,9 @@
     <ClCompile Include="src\menuItem.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ofxArgParser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -81,6 +84,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\menuItem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofxArgParser.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

@@ -99,6 +99,7 @@
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+    <ClCompile Include="src\ofxArgParser.cpp" />
     <ClCompile Include="src\ofxAssets.cpp" />
     <ClCompile Include="src\presentation.cpp" />
     <ClCompile Include="src\slide.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
+    <ClInclude Include="src\ofxArgParser.h" />
     <ClInclude Include="src\ofxAssets.h" />
     <ClInclude Include="src\presentation.h" />
     <ClInclude Include="src\slide.h" />
