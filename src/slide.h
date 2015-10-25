@@ -37,6 +37,7 @@ class Slide
 		
 		// Items (Titles, Lyrics) on a slide.
 		vector< ofPtr<Item> > items;
+		vector< float > pauses;
 
 		Presentation* presentation;
 		
@@ -55,6 +56,7 @@ class Slide
 
 		// Item varables
 		int currentItem;
+		int currentPause;
 
 		// Transition variables
 		bool doingTransition;

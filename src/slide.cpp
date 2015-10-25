@@ -6,6 +6,9 @@ Slide::Slide(void){
 
 	// Set Current Item
 	currentItem = -1;
+
+	// Set Current Video Pause.
+	currentPause = 0;
 }
 
 Slide::~Slide(void){
@@ -55,12 +58,13 @@ void Slide::update(){
 				
 			bgVideo.setup(settings);
 		}
+
+
 #else
 		// Load video on Desktop.
 		if(!bgVideo.isLoaded()){
 			ofFile file(ofToDataPath(backgroundVideo));
 			if(file.exists()){
-				
 				bgVideo.loadMovie(ofToDataPath(backgroundVideo));
 				if(loopBackgroundVideo){
 					bgVideo.setLoopState(OF_LOOP_NORMAL);
@@ -68,6 +72,18 @@ void Slide::update(){
 					bgVideo.setLoopState(OF_LOOP_NONE);
 				}
 				bgVideo.play();
+			}
+		}
+
+		// TODO: Add Pause Feature to Raspberry Pi!
+
+		// Check if need to Pause video.
+		if(pauses.size() > 0){
+			//cout << "Position: " << ofToString(bgVideo.getPosition() * bgVideo.getDuration()) << " Pause: " << ofToString(pauses[currentPause]) << endl;
+			if((bgVideo.getPosition() * bgVideo.getDuration()) > pauses[currentPause]){
+				bgVideo.setPaused(true);
+			} else {
+				bgVideo.setPaused(false);
 			}
 		}
 
@@ -255,7 +271,12 @@ bool Slide::next(){
 		return true;	
 	}
 
+	if(pauses.size() > 0 && ++currentPause != pauses.size()){
+		return true;
+	}
+
 	currentItem = items.size() - 1;
+	currentPause = 0;
 
 	closeVideos();
 	setTransitionDefaults();
@@ -266,6 +287,8 @@ bool Slide::previous(){
 	if(items.size() > 0 && --currentItem != -1){
 		return true;	
 	}
+
+	currentPause = 0;
 
 	closeVideos();
 	setTransitionDefaults();
