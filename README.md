@@ -15,7 +15,7 @@ An example:
   <slide backgroundcolor="#000000" backgroundimage="slide02.jpg" transition="fade"/>
   <slide backgroundcolor="#000000" backgroundimage="slide03.jpg" transition="scrolling"/>
   <slide backgroundcolor="#000000" backgroundimage="slide04.jpg" transition="fadetoblack"/>
-  <slide backgroundcolor="#000000" backgroundvideo="video.mp4" transition="fade"/>
+  <slide backgroundcolor="#000000" backgroundvideo="background.mp4" transition="fade"/>
     <item type="title" font="MyriadPro-Bold.otf">Father God, you're by my side</item>
     <item type="lyric" font="MyriadPro-Bold.otf"><![CDATA[Father God,
 you're by my side
@@ -29,6 +29,11 @@ ever leave me]]></item>
 And it's very hard to walk
 When I'm feeling really rough
 And it's even hard to talk to you]]></item>
+  </slide>
+  <slide backgroundcolor="#000000" backgroundvideo="video.mp4" transition="fade"/>
+    <pause time="00:00:25" />
+    <pause time="00:05:00" />
+    <pause time="00:07:30" />
   </slide>
 </slides>
 ```
