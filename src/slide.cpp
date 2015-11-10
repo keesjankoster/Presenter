@@ -58,8 +58,6 @@ void Slide::update(){
 				
 			bgVideo.setup(settings);
 		}
-
-
 #else
 		// Load video on Desktop.
 		if(!bgVideo.isLoaded()){

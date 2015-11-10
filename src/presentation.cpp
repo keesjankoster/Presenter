@@ -15,7 +15,7 @@ Presentation::~Presentation(void){
 
 void Presentation::load(std::string path){
 	// Set data path to Presentation path.
-	dataPathRoot = ofToDataPath("");
+	dataPathRoot = ofToDataPath("\/");
 	ofSetDataPathRoot(path + "\/");
 	
 	// Load the presentation.xml file.

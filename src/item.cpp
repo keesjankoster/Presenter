@@ -16,9 +16,6 @@ void Item::update(){
 
 void Item::draw(){
 	if(type == PRESENTER_SLIDE_ITEM_TYPE_TITLE || type == PRESENTER_SLIDE_ITEM_TYPE_LYRIC){
-		// set space size lower, somehow spaces drawn looked to wide
-		font->setSpaceSize(0.50);
-
 		// determine the scale for the biggest possible font size
 		if(scale == -1){
 			float w = (ofGetWindowWidth() - 50) / font->stringWidth(value);
