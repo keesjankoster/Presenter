@@ -8,9 +8,7 @@ Menu::Menu(void){
 
 	// Load Menu resources.
 	font_small.loadFont("DroidSans.ttf", 12);
-	font_small.setSpaceSize(0.5);
 	font_large.loadFont("DroidSans.ttf", 18);
-	font_large.setSpaceSize(0.5);
 
 	img_hdd.loadImage("hdd.png");
 

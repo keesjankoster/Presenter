@@ -15,7 +15,7 @@ Presentation::~Presentation(void){
 
 void Presentation::load(std::string path){
 	// Set data path to Presentation path.
-	dataPathRoot = ofToDataPath("");
+	dataPathRoot = ofToDataPath("\/");
 	ofSetDataPathRoot(path + "\/");
 	
 	// Load the presentation.xml file.
@@ -64,6 +64,28 @@ void Presentation::load(std::string path){
 		if(slide->backgroundVideo != "none"){
 			// Setup looping.
 			slide->loopBackgroundVideo = (presentation.getAttribute("slide", "loop", "no", i)=="yes");
+
+			// Load video pausing.
+			presentation.pushTag("slide", i);
+			int numPauses = presentation.getNumTags("pause");
+			for(int n = 0; n < numPauses; n++){
+				vector< string > pause;
+				float time;
+				pause = ofSplitString(presentation.getAttribute("pause", "time", "00:00:00", n), ":");
+				
+				// add hours.
+				time = ofToInt(pause[0]) * 60 * 60;
+				// add minutes.
+				time += ofToInt(pause[1]) * 60;
+				// add seconds.
+				time += ofToInt(pause[2]);
+
+				slide->pauses.push_back(time);
+
+				// cout << "Pause: " << presentation.getAttribute("pause", "time", "00:00:00", n) << " => " << ofToString(time) << endl;
+			}
+
+			presentation.popTag();
 		}
 
 		// Load items.

@@ -13,7 +13,6 @@ MenuItem::MenuItem(void){
 	// TODO: Change Images to Menu, now they are loaded for each MenuItem...
 	if(!img_cat->isAllocated()){
 		img_cat->loadImage("cat.png");
-		cout << "LOAD" << endl;
 	}
 	if(!img_pst->isAllocated()){
 		img_pst->loadImage("pst.png");
