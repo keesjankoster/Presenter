@@ -29,12 +29,13 @@ void ofApp::setup(){
 	ofHideCursor();    
 #endif
 
+#if !defined(TARGET_RASPBERRY_PI)
 	// Pars Command Line Arguments
 	if(ofxArgParser::hasKey("presentation")){
 		// Load Presentation
 		menuClick(ofxArgParser::getValue("presentation"));
 	}
-			
+#endif			
 }
 
 void ofApp::menuClick(string & path){
