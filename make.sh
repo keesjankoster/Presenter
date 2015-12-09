@@ -1,3 +1,3 @@
 mv bin/data ~/
-make
+make -j4
 mv ~/data bin/
