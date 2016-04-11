@@ -40,9 +40,9 @@ hdmi_drive=2
 
 ```
 # cd ~
-# curl -O http://www.openframeworks.cc/versions/v0.9.0/of_v0.9.0_linuxarmv7l_release.tar.gz
+# curl -O http://openframeworks.cc/versions/v0.9.3/of_v0.9.3_linuxarmv6l_release.tar.gz
 # mkdir openFrameworks
-# tar vxfz of_v0.9.0_linuxarmv7l_release.tar.gz -C openFrameworks --strip-components 1
+# tar vxfz of_v0.9.3_linuxarmv6l_release.tar.gz -C openFrameworks --strip-components 1
 ```
 
 - Install packages and compile OpenFrameworks:
