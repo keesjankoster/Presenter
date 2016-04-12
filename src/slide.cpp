@@ -41,6 +41,7 @@ void Slide::update(){
 		// cout << "Image: " << ofToDataPath(backgroundImage) << endl;
 		if(file.exists()){
 			bgImage.loadImage(file);
+			//ofLoadImage(bgImage, ofToDataPath(backgroundImage));
 			// cout << "Image loaded: " << ofToDataPath(backgroundImage) << endl;
 		}
 	}
@@ -93,7 +94,7 @@ void Slide::update(){
 
 		// Items.
 		if(items.size() > 0 && currentItem > -1){
-			items[currentItem]->update();
+			(items)[currentItem]->update();
 		}
 			
 	}
@@ -136,7 +137,7 @@ void Slide::draw(){
 
 	// Items.
 	if(items.size() > 0 && currentItem > -1){
-		items[currentItem]->draw();
+		(items)[currentItem]->draw();
 	}
 	
 	// cout << "DRAW 3" << endl;

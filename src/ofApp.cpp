@@ -26,18 +26,18 @@ void ofApp::setup(){
 	ofAddListener(menu->onMenuClick, this, &ofApp::menuClick);
 
 #if defined(TARGET_RASPBERRY_PI) 
-	ofHideCursor();    
-#endif
-
+	ofHideCursor();
+#else
 	// Pars Command Line Arguments
-	if(ofxArgParser::hasKey("presentation")){
+	if (ofxArgParser::hasKey("presentation")) {
 		// Load Presentation
 		menuClick(ofxArgParser::getValue("presentation"));
 	}
+#endif
 			
 }
 
-void ofApp::menuClick(string & path){
+void ofApp::menuClick(string &path){
 	// load presentation xml file.
 	presentation = new Presentation(path);
 			

@@ -32,7 +32,7 @@ class ofApp : public ofBaseApp{
 
 	protected:
 		void endPresentation();
-		void menuClick(string & path);
+		void menuClick(string &path);
 
 		Presentation *presentation;
 

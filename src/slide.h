@@ -45,6 +45,7 @@ class Slide
 		void closeVideos();
 
 		ofImage bgImage;
+		//ofTexture bgImage;
 		
 #if defined(TARGET_RASPBERRY_PI)
 		// Use ofxOMXPlayer on Raspberry Pi.

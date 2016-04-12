@@ -1,5 +1,6 @@
 #include "presentation.h"
 #include "slide.h"
+#include "item.h"
 
 Presentation::Presentation(void){
 
@@ -15,8 +16,8 @@ Presentation::~Presentation(void){
 
 void Presentation::load(std::string path){
 	// Set data path to Presentation path.
-	dataPathRoot = ofToDataPath("\/");
-	ofSetDataPathRoot(path + "\/");
+	dataPathRoot = ofToDataPath("");
+	ofSetDataPathRoot(path);
 	
 	// Load the presentation.xml file.
 	presentation.loadFile(ofToDataPath("presentation.xml"));
@@ -153,6 +154,7 @@ bool Presentation::next(void){
 			return true;
 		}
 	}
+	return true;
 }
 
 bool Presentation::previous(void){
@@ -165,6 +167,7 @@ bool Presentation::previous(void){
 			return true;
 		}
 	}
+	return true;
 }
 
 void Presentation::exit(){

@@ -174,7 +174,7 @@ void Menu::loadMenuItems(ofDirectory directory, ofPtr< MenuItem > currentItem){
 			} else {
 				// Directory is a Category.
 				item->isCategory = true;
-				item->path = currentItem->path + " \/ " + item->name;
+				item->path = currentItem->path + " / " + item->name;
 
 				// Add MenuItem to navigate up.
 				ofPtr<MenuItem> itemUp(new MenuItem);
