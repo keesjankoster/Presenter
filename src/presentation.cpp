@@ -83,7 +83,7 @@ void Presentation::load(std::string path){
 
 				slide->pauses.push_back(time);
 
-				// cout << "Pause: " << presentation.getAttribute("pause", "time", "00:00:00", n) << " => " << ofToString(time) << endl;
+				//cout << "Pause: " << presentation.getAttribute("pause", "time", "00:00:00", n) << " => " << ofToString(time) << endl;
 			}
 
 			presentation.popTag();
@@ -151,6 +151,7 @@ bool Presentation::next(void){
 			return false;
 		} else {
 			slides[currentSlide]->previousSlide.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+			slides[currentSlide - 1]->clear();
 			return true;
 		}
 	}
@@ -164,6 +165,7 @@ bool Presentation::previous(void){
 			return false;
 		} else {
 			slides[currentSlide]->previousSlide.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+			slides[currentSlide + 1]->clear();
 			return true;
 		}
 	}
