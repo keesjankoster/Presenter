@@ -24,6 +24,7 @@ class Slide
 
 		void update();
 		void draw();
+		void clear();
 		bool next(void);
 		bool previous(void);
 

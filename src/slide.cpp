@@ -55,13 +55,27 @@ void Slide::update(){
 		if(!bgVideo.isPlaying() && !bgVideo.isPaused()){
 			ofxOMXPlayerSettings settings;
 			settings.videoPath = ofToDataPath(backgroundVideo, true);
+			//settings.enableTexture = false;
 			settings.enableLooping = loopBackgroundVideo;
 				
 			bgVideo.setup(settings);
 		}
+
+		// Check if need to Pause video.
+		if (pauses.size() > 0) {
+			if ((bgVideo.getCurrentFrame() / bgVideo.getTotalNumFrames() * bgVideo.getDurationInSeconds()) > pauses[currentPause]) {
+				bgVideo.setPaused(true);
+			}
+			else {
+				bgVideo.setPaused(false);
+			}
+		}
+
 #else
 		// Load video on Desktop.
 		if(!bgVideo.isLoaded()){
+			cout << "LOADING VIDEO" << endl;
+
 			ofFile file(ofToDataPath(backgroundVideo));
 			if(file.exists()){
 				bgVideo.loadMovie(ofToDataPath(backgroundVideo));
@@ -128,6 +142,8 @@ void Slide::draw(){
 	}
 #else
 	if(bgVideo.isLoaded()){
+		cout << "DRAWING VIDEO" << endl;
+
 		int vHeight = ofGetWindowWidth() / bgVideo.getWidth() * bgVideo.getHeight();
 		bgVideo.draw(0, 0, ofGetWindowWidth(), vHeight);
 	}
@@ -263,6 +279,12 @@ void Slide::closeVideos(){
 		bgVideo.closeMovie();
 	}
 #endif
+}
+
+void Slide::clear() {
+	closeVideos();
+	bgImage.clear();
+	previousSlide.clear();
 }
 
 bool Slide::next(){
