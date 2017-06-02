@@ -21,6 +21,8 @@ class Item
 		std::string value;
 		ofTrueTypeFont *font;
 
+		ofPtr<ofRectangle> box;
+
 	private:
 		float scale;
 };

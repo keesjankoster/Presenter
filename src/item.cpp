@@ -18,8 +18,8 @@ void Item::draw(){
 	if(type == PRESENTER_SLIDE_ITEM_TYPE_TITLE || type == PRESENTER_SLIDE_ITEM_TYPE_LYRIC){
 		// determine the scale for the biggest possible font size
 		if(scale == -1){
-			float w = (ofGetWindowWidth() - 50) / font->stringWidth(value);
-			float h = (ofGetWindowHeight() - 150) / font->stringHeight(value);
+			float w = (box->getWidth() - 50) / font->stringWidth(value);
+			float h = (box->getHeight() - 150) / font->stringHeight(value);
 
 			scale = w < h ? w : h;
 
@@ -32,16 +32,16 @@ void Item::draw(){
 		ofScale(scale, scale);
 
 		// start y position, on top of screen
-		float y = 100;
+		float y = box->getY() + 100;
 		if(type == PRESENTER_SLIDE_ITEM_TYPE_TITLE){
-			y = ((ofGetWindowHeight() - (font->stringHeight(value) * scale)) / 2) - 150;
+			y = box->getY() + ((box->getHeight() - (font->stringHeight(value) * scale)) / 2) - 150;
 		} 
 
 		// get line by line
 		std::istringstream f(value);
 		std::string line;    
 		while (std::getline(f, line)) {
-			float x = (ofGetWindowWidth() - (font->stringWidth(line) * scale)) / 2;
+			float x = box->getX() + (box->getWidth() - (font->stringWidth(line) * scale)) / 2;
 
 			/*cout << "WINDOW: " << ofToString(ofGetWindowWidth()) << endl;
 			cout << "SCALE: " << ofToString(scale) << endl;

@@ -9,6 +9,7 @@ Slide::Slide(void){
 
 	// Set Current Video Pause.
 	currentPause = 0;
+	doingPauses = true;
 }
 
 Slide::~Slide(void){
@@ -55,19 +56,28 @@ void Slide::update(){
 		if(!bgVideo.isPlaying() && !bgVideo.isPaused()){
 			ofxOMXPlayerSettings settings;
 			settings.videoPath = ofToDataPath(backgroundVideo, true);
-			//settings.enableTexture = false;
 			settings.enableLooping = loopBackgroundVideo;
 				
 			bgVideo.setup(settings);
 		}
 
 		// Check if need to Pause video.
-		if (pauses.size() > 0) {
-			if ((bgVideo.getCurrentFrame() / bgVideo.getTotalNumFrames() * bgVideo.getDurationInSeconds()) > pauses[currentPause]) {
-				bgVideo.setPaused(true);
-			}
-			else {
+		if (pauses.size() > 0 && doingPauses) {
+			//ofLog(OF_LOG_NOTICE, "Time: " + ofToString((float)bgVideo.getCurrentFrame() / bgVideo.getTotalNumFrames() * bgVideo.getDurationInSeconds()));
+			//ofLog(OF_LOG_NOTICE, "Time: " + ofToString(bgVideo.getCurrentFrame()));
+			//ofLog(OF_LOG_NOTICE, "Time: " + ofToString(bgVideo.getTotalNumFrames()));
+			//ofLog(OF_LOG_NOTICE, "Time: " + ofToString(bgVideo.getDurationInSeconds()));
+			//ofLog(OF_LOG_NOTICE, "Pause: " + ofToString(pauses[currentPause]));
+			if (currentPause == pauses.size()) {
 				bgVideo.setPaused(false);
+				doingPauses = false;
+				//ofLog(OF_LOG_NOTICE, "PLAY LAST BIT");
+			} else if (((float)bgVideo.getCurrentFrame() / bgVideo.getTotalNumFrames() * bgVideo.getDurationInSeconds()) > pauses[currentPause]) {
+				bgVideo.setPaused(true);
+				//ofLog(OF_LOG_NOTICE, "PAUSE");
+			} else {
+				bgVideo.setPaused(false);
+				//ofLog(OF_LOG_NOTICE, "PLAY");
 			}
 		}
 
@@ -88,12 +98,13 @@ void Slide::update(){
 			}
 		}
 
-		// TODO: Add Pause Feature to Raspberry Pi!
-
 		// Check if need to Pause video.
-		if(pauses.size() > 0){
+		if(pauses.size() > 0 && doingPauses){
 			//cout << "Position: " << ofToString(bgVideo.getPosition() * bgVideo.getDuration()) << " Pause: " << ofToString(pauses[currentPause]) << endl;
-			if((bgVideo.getPosition() * bgVideo.getDuration()) > pauses[currentPause]){
+			if (currentPause == pauses.size()) {
+				bgVideo.setPaused(false);
+				doingPauses = false;
+			} else if((bgVideo.getPosition() * bgVideo.getDuration()) > pauses[currentPause]){
 				bgVideo.setPaused(true);
 			} else {
 				bgVideo.setPaused(false);
@@ -292,7 +303,7 @@ bool Slide::next(){
 		return true;	
 	}
 
-	if(pauses.size() > 0 && ++currentPause != pauses.size()){
+	if(pauses.size() > 0 && ++currentPause <= pauses.size()){
 		return true;
 	}
 

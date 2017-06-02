@@ -39,6 +39,8 @@ class Slide
 		// Items (Titles, Lyrics) on a slide.
 		vector< ofPtr<Item> > items;
 		vector< float > pauses;
+		bool doingPauses;
+		ofPtr<ofRectangle> box;
 
 		Presentation* presentation;
 		
@@ -67,7 +69,7 @@ class Slide
 		int transitionState;
 
 		void setTransitionDefaults();
-		void doTransition(ofImage * current);
+		void doTransition(ofImage* current);
 
 };
 

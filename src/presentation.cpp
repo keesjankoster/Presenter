@@ -89,6 +89,12 @@ void Presentation::load(std::string path){
 			presentation.popTag();
 		}
 
+		// Load Box in which to write titles and lyrics
+		vector<string> rect = ofSplitString(presentation.getAttribute("slide", "box", "0,0,"+ofToString(ofGetWindowWidth())+","+ofToString(ofGetWindowHeight()), i), ",");
+		slide->box = std::make_shared<ofRectangle>(ofToFloat(rect[0]), ofToFloat(rect[1]), ofToFloat(rect[2]), ofToFloat(rect[3]));
+		
+		//cout << "(" << slide->box->getX() << "," << slide->box->getY() << "," << slide->box->getWidth() << "," << slide->box->getHeight() << ")" << endl;
+
 		// Load items.
 		presentation.pushTag("slide", i);
 		int numItems = presentation.getNumTags("item");
@@ -110,6 +116,9 @@ void Presentation::load(std::string path){
 			if(item->type == PRESENTER_SLIDE_ITEM_TYPE_TITLE || item->type == PRESENTER_SLIDE_ITEM_TYPE_LYRIC){
 				item->font = &fonts[presentation.getAttribute("item", "font", "verdana.ttf", n) + "_64"];
 			}
+
+			// Set the box
+			item->box = slide->box;
 			
 			// Add the item to the slide.
 			slide->items.push_back(item);
