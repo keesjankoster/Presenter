@@ -12,7 +12,7 @@ int main(int argc, const char** argv){
 	//ShowWindow(GetConsoleWindow(), SW_HIDE);
 #endif
 
-	ofSetupOpenGL(1024,768,OF_WINDOW);			// <-------- setup the GL context
+	ofSetupOpenGL(1920,1080,OF_WINDOW);			// <-------- setup the GL context
 
 
 	// this kicks off the running of my app

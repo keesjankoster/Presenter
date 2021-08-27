@@ -90,7 +90,7 @@ void Presentation::load(std::string path){
 		}
 
 		// Load Box in which to write titles and lyrics
-		vector<string> rect = ofSplitString(presentation.getAttribute("slide", "box", "0,0,"+ofToString(ofGetWindowWidth())+","+ofToString(ofGetWindowHeight()), i), ",");
+		vector<string> rect = ofSplitString(presentation.getAttribute("slide", "box", "0,0,"+ofToString(ofGetWidth())+","+ofToString(ofGetHeight()), i), ",");
 		slide->box = std::make_shared<ofRectangle>(ofToFloat(rect[0]), ofToFloat(rect[1]), ofToFloat(rect[2]), ofToFloat(rect[3]));
 		
 		//cout << "(" << slide->box->getX() << "," << slide->box->getY() << "," << slide->box->getWidth() << "," << slide->box->getHeight() << ")" << endl;

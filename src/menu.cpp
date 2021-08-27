@@ -3,7 +3,7 @@
 Menu::Menu(void){
 	// Default variables.
 	visible = true;
-	menuX = 650;
+	menuX = 1500;
 	menuY = 250;
 
 	// Load Menu resources.
@@ -89,22 +89,24 @@ void Menu::keyPressed(ofKeyEventArgs & args){
 			break;
 		}
 	}
+
+	cout << args.key << endl;
 	
 	switch (args.key) 
     {       
-        case 357:    // KEY_UP
+        case OF_KEY_UP:    // KEY_UP
 			if(selected-- == 0){
 				selected = activeItem->items.size() - 1;
 			}
 			activeItem->items[selected]->select();
 			break;
-		case 359:	 // KEY_DOWN
+		case OF_KEY_DOWN:	 // KEY_DOWN
 			if(++selected == activeItem->items.size()){
 				selected = 0;
 			}
 			activeItem->items[selected]->select();
 			break;
-		case 13:    // KEY_RETURN
+		case OF_KEY_RETURN:    // KEY_RETURN
 		case 10:	// KEY_RETURN (RPi)
 			if(activeItem->items[selected]->isMenuUp){
 				activeItem = activeItem->parent;

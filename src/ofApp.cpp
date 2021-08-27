@@ -16,9 +16,9 @@ void ofApp::setup(){
 	status = PRESENTER_STATUS_WELCOME;
 
 	// Load logo for welcome screen.
-	logo.loadImage("logo.png");
-	if(logo.getWidth()>550){
-		logo.resize(550, logo.getHeight() / logo.getWidth() * 550);
+	logo.load("logo.png");
+	if(logo.getWidth()>1000){
+		logo.resize(1000, logo.getHeight() / logo.getWidth() * 1000);
 	}
 
 	// Setup Menu.
@@ -70,11 +70,11 @@ void ofApp::draw(){
 		ofBackground(ofColor::white);
 
 		// LUKE Theatre Group logo
-		logo.draw(50,75);
+		logo.draw(100,(ofGetHeight() - logo.getHeight())/2);
 
 		// Presenter version
 		ofSetColor(ofColor(ofColor::dimGrey));
-		ofDrawBitmapString("1.6.0", 960, 740);
+		ofDrawBitmapString("2.0.0", ofGetWidth() - 100, ofGetHeight() - 100);
 	} else if (status == PRESENTER_STATUS_PRESENTATION){
 		if(presentation != NULL){
 			presentation->draw();
