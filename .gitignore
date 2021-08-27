@@ -158,3 +158,5 @@ $RECYCLE.BIN/
 *.opendb
 /.vs/Presenter/v16/Solution.VC.db-wal
 /.vs/Presenter/v16/Solution.VC.db-shm
+*.db-shm
+*.db-wal
