@@ -156,3 +156,5 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 *.opendb
+/.vs/Presenter/v16/Solution.VC.db-wal
+/.vs/Presenter/v16/Solution.VC.db-shm
