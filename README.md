@@ -1,4 +1,4 @@
-# Presenter
+# Presenter 2.0.0
 Presentation Application for LUKE Theatre Group (http://luketheatre.co.uk) based on openFrameworks (http://openframeworks.cc). Presenter runs on Desktops (tested on Windows) and during shows on a Raspberry Pi.
 
 ## Presentations
@@ -49,6 +49,7 @@ And it's even hard to talk to you]]></item>
 
 ## Codecs
 
-It seems that on Windows Codecs need to be installed: http://www.codecguide.com/download_kl.htm
+It seems that on Windows Codecs need to be installed: Download K-Lite Codec Pack - Version 12.1.0
+https://filehippo.com/download_klite_codec_pack/67445/
 
 
