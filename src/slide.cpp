@@ -84,7 +84,7 @@ void Slide::update(){
 #else
 		// Load video on Desktop.
 		if(!bgVideo.isLoaded()){
-			cout << "LOADING VIDEO" << endl;
+			//cout << "LOADING VIDEO" << endl;
 
 			ofFile file(ofToDataPath(backgroundVideo));
 			if(file.exists()){
@@ -153,7 +153,7 @@ void Slide::draw(){
 	}
 #else
 	if(bgVideo.isLoaded()){
-		cout << "DRAWING VIDEO" << endl;
+		//cout << "DRAWING VIDEO" << endl;
 
 		int vHeight = ofGetWindowWidth() / bgVideo.getWidth() * bgVideo.getHeight();
 		bgVideo.draw(0, 0, ofGetWindowWidth(), vHeight);

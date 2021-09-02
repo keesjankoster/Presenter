@@ -21,6 +21,8 @@ void Item::draw(){
 			float w = (box->getWidth() - 50) / font->stringWidth(value);
 			float h = (box->getHeight() - 150) / font->stringHeight(value);
 
+			//cout << "(" << box->getWidth() << "," << box->getHeight() << "," << font->stringWidth(value) << "," << font->stringHeight(value) << ")" << endl;
+
 			scale = w < h ? w : h;
 
 			if(scale > 1){
@@ -32,9 +34,9 @@ void Item::draw(){
 		ofScale(scale, scale);
 
 		// start y position, on top of screen
-		float y = box->getY() + 100;
+		float y = box->getY() + 150;
 		if(type == PRESENTER_SLIDE_ITEM_TYPE_TITLE){
-			y = box->getY() + ((box->getHeight() - (font->stringHeight(value) * scale)) / 2) - 150;
+			y = box->getY() + ((box->getHeight() - (font->stringHeight(value) * scale)) / 2);
 		} 
 
 		// get line by line
@@ -50,7 +52,7 @@ void Item::draw(){
 			
 			// draw black shadow
 			ofSetColor(ofColor::black);
-			font->drawString(line, (x + 2) / scale, (y + 2) / scale);
+			font->drawString(line, (x + 5) / scale, (y + 5) / scale);
 
 			// draw white letters
 			ofSetColor(ofColor::white);

@@ -90,7 +90,7 @@ void Menu::keyPressed(ofKeyEventArgs & args){
 		}
 	}
 
-	cout << args.key << endl;
+	//cout << args.key << endl;
 	
 	switch (args.key) 
     {       

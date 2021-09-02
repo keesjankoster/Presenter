@@ -114,7 +114,7 @@ void Presentation::load(std::string path){
 
 			// Get font.
 			if(item->type == PRESENTER_SLIDE_ITEM_TYPE_TITLE || item->type == PRESENTER_SLIDE_ITEM_TYPE_LYRIC){
-				item->font = &fonts[presentation.getAttribute("item", "font", "verdana.ttf", n) + "_64"];
+				item->font = &fonts[presentation.getAttribute("item", "font", "verdana.ttf", n) + "_150"];
 			}
 
 			// Set the box
