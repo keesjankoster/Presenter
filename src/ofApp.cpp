@@ -34,6 +34,9 @@ void ofApp::setup(){
 		menuClick(ofxArgParser::getValue("presentation"));
 	}
 #endif
+
+	// Setup Key Press detection
+	ofAddListener(ofGetWindowPtr()->events().keyPressed, this, &ofApp::keycodePressed);
 			
 }
 
@@ -102,33 +105,7 @@ void ofApp::endPresentation(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-	// cout << "KEY: " << ofToString(key) << endl;
-
-    switch (key) 
-    {       
-		case 'x':
-			if (status == PRESENTER_STATUS_PRESENTATION){
-				presentation->exit();
-				endPresentation();
-			}
-			break;
-		case OF_KEY_RIGHT:
-			if (status == PRESENTER_STATUS_PRESENTATION){
-				if(presentation->next()==0){
-					endPresentation();
-				}
-			}
-            break; 
-		case OF_KEY_LEFT:
-			if (status == PRESENTER_STATUS_PRESENTATION){
-				if(presentation->previous()==0){
-					endPresentation();
-				}
-			}
-            break; 
-        default:
-            break;
-    }
+	
 }
 
 //--------------------------------------------------------------
@@ -144,6 +121,58 @@ void ofApp::mouseMoved(int x, int y ){
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
 
+}
+
+//--------------------------------------------------------------
+void ofApp::keycodePressed(ofKeyEventArgs& e) {
+	//cout << "KEY: " << ofToString(e.key) << endl;
+
+#if defined(TARGET_RASPBERRY_PI)
+	// Check if Ctrl key is pressed
+	if (e.hasModifier(OF_KEY_CONTROL)) {
+		// Check for Q (ctrl + q)
+		if (e.key == 17) {
+			// Shutdown the system
+			cout << "SHUTDOWN" << endl;
+			system("shutdown now");
+		}
+
+		// Check for R (ctrl + r)
+		if (e.key == 18) {
+			// Reboot system
+			cout << "REBOOT" << endl;
+			system("shutdown -r now");
+		}
+
+	}
+#endif
+
+	switch (e.key)
+	{
+	case 'x':
+		if (status == PRESENTER_STATUS_PRESENTATION) {
+			presentation->exit();
+			endPresentation();
+		}
+		break;
+	case OF_KEY_RIGHT:
+		if (status == PRESENTER_STATUS_PRESENTATION) {
+			if (presentation->next() == 0) {
+				endPresentation();
+			}
+		}
+		break;
+	case OF_KEY_LEFT:
+		if (status == PRESENTER_STATUS_PRESENTATION) {
+			if (presentation->previous() == 0) {
+				endPresentation();
+			}
+		}
+		break;
+	default:
+		break;
+	}
+	
 }
 
 //--------------------------------------------------------------

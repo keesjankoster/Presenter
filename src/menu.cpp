@@ -51,6 +51,12 @@ void Menu::draw(ofEventArgs & args){
 			activeItem->items[i]->setLocation(x, y);
 			activeItem->items[i]->draw(activeItem->items[i].get() == pressedItem);
 		}
+
+#if defined(TARGET_RASPBERRY_PI) 
+		font_small.drawString("Ctrl + Q  Shutdown", x, y + 100);
+		font_small.drawString("Ctrl + R  Reboot", x, y + 124);
+#endif
+
 	}
 }
 
