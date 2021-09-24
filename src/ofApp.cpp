@@ -77,7 +77,7 @@ void ofApp::draw(){
 
 		// Presenter version
 		ofSetColor(ofColor(ofColor::dimGrey));
-		ofDrawBitmapString("2.0.0", ofGetWidth() - 100, ofGetHeight() - 100);
+		ofDrawBitmapString("2.0.1", ofGetWidth() - 100, ofGetHeight() - 100);
 	} else if (status == PRESENTER_STATUS_PRESENTATION){
 		if(presentation != NULL){
 			presentation->draw();
